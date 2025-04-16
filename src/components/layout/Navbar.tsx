@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, User, LogOut } from 'lucide-react';
 import { useUser } from '@/contexts/UserContext';
+import { supabase } from '@/integrations/supabase/client';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/auth');
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -48,15 +55,18 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center">
             {user ? (
-              <div className="flex items-center">
+              <div className="flex items-center space-x-4">
                 <Button variant="ghost" className="flex items-center space-x-2">
                   <User size={18} />
                   <span className="font-medium">{user.name || 'Profile'}</span>
                 </Button>
+                <Button onClick={handleSignOut} variant="ghost">
+                  <LogOut className="h-5 w-5" />
+                </Button>
               </div>
             ) : (
-              <Button className="bg-dream-600 hover:bg-dream-700">
-                Get Started
+              <Button onClick={() => navigate('/auth')} className="bg-dream-600 hover:bg-dream-700">
+                Sign In
               </Button>
             )}
           </div>

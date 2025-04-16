@@ -1,5 +1,5 @@
-
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useNavigate } from 'react';
+import { supabase } from '../supabase';
 
 type UserSkill = {
   name: string;
@@ -49,9 +49,21 @@ export type ScheduleItem = {
   priority: 'low' | 'medium' | 'high';
 };
 
+type Session = {
+  user: {
+    id: string;
+    email: string;
+    user_metadata: {
+      name: string;
+    };
+  };
+};
+
 type UserContextType = {
   user: UserProfile | null;
   setUser: React.Dispatch<React.SetStateAction<UserProfile | null>>;
+  session: Session | null;
+  setSession: React.Dispatch<React.SetStateAction<Session | null>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   cvUploaded: boolean;
@@ -70,9 +82,46 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [cvUploaded, setCvUploaded] = useState(false);
   const [dreamJobSet, setDreamJobSet] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        if (session?.user) {
+          setUser(prev => ({
+            ...prev,
+            id: session.user.id,
+            email: session.user.email || '',
+            name: session.user.user_metadata.name || '',
+          }));
+        } else {
+          setUser(null);
+        }
+      }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session?.user) {
+        setUser(prev => ({
+          ...prev,
+          id: session.user.id,
+          email: session.user.email || '',
+          name: session.user.user_metadata.name || '',
+        }));
+      }
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const updateUserProfile = (data: Partial<UserProfile>) => {
     setUser(prev => {
@@ -130,6 +179,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       value={{ 
         user, 
         setUser, 
+        session,
+        setSession,
         isLoading, 
         setIsLoading,
         cvUploaded,
