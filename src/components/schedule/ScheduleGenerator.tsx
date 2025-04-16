@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,9 +23,9 @@ const ScheduleGenerator = () => {
   
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const priorities = [
-    { value: 'low', label: 'Low', color: 'bg-gray-100 text-gray-700' },
-    { value: 'medium', label: 'Medium', color: 'bg-blue-100 text-blue-700' },
-    { value: 'high', label: 'High', color: 'bg-red-100 text-red-700' }
+    { value: 'low' as const, label: 'Low', color: 'bg-gray-100 text-gray-700' },
+    { value: 'medium' as const, label: 'Medium', color: 'bg-blue-100 text-blue-700' },
+    { value: 'high' as const, label: 'High', color: 'bg-red-100 text-red-700' }
   ];
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -93,49 +92,49 @@ const ScheduleGenerator = () => {
         startTime: '08:00',
         endTime: '10:00',
         activity: 'Study technical skills',
-        priority: 'high'
+        priority: 'high' as const
       },
       {
         day: 'Monday',
         startTime: '16:00',
         endTime: '17:30',
         activity: 'Practice interview questions',
-        priority: 'medium'
+        priority: 'medium' as const
       },
       {
         day: 'Tuesday',
         startTime: '07:30',
         endTime: '09:00',
         activity: 'Online course: Fundamentals',
-        priority: 'high'
+        priority: 'high' as const
       },
       {
         day: 'Wednesday',
         startTime: '18:00',
         endTime: '20:00',
         activity: 'Work on portfolio project',
-        priority: 'high'
+        priority: 'high' as const
       },
       {
         day: 'Thursday',
         startTime: '17:00',
         endTime: '18:30',
         activity: 'Networking: Industry meetup',
-        priority: 'medium'
+        priority: 'medium' as const
       },
       {
         day: 'Friday',
         startTime: '07:00',
         endTime: '08:30',
         activity: 'Review weekly progress',
-        priority: 'medium'
+        priority: 'medium' as const
       },
       {
         day: 'Saturday',
         startTime: '10:00',
         endTime: '12:00',
         activity: 'Read industry publications',
-        priority: 'low'
+        priority: 'low' as const
       }
     ];
     
@@ -153,7 +152,6 @@ const ScheduleGenerator = () => {
     });
   };
   
-  // Group schedule items by day
   const scheduleByDay = days.map(day => {
     const dayItems = user?.schedule?.filter(item => item.day === day) || [];
     return {
@@ -172,7 +170,6 @@ const ScheduleGenerator = () => {
       </header>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Schedule Form */}
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
@@ -303,7 +300,6 @@ const ScheduleGenerator = () => {
           </Card>
         </div>
         
-        {/* Weekly Schedule */}
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
@@ -381,14 +377,12 @@ const ScheduleGenerator = () => {
   );
 };
 
-// Helper function to calculate duration between two time strings
 function calculateDuration(startTime: string, endTime: string): string {
   const [startHours, startMinutes] = startTime.split(':').map(Number);
   const [endHours, endMinutes] = endTime.split(':').map(Number);
   
   let durationMinutes = (endHours * 60 + endMinutes) - (startHours * 60 + startMinutes);
   
-  // Handle negative duration (crossing midnight)
   if (durationMinutes < 0) {
     durationMinutes += 24 * 60;
   }

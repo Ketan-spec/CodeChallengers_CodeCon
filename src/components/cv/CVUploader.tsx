@@ -86,10 +86,10 @@ const CVUploader = () => {
         email: "alex.johnson@example.com",
         phone: "555-123-4567",
         skills: [
-          { name: "JavaScript", level: "advanced" },
-          { name: "React", level: "intermediate" },
-          { name: "TypeScript", level: "intermediate" },
-          { name: "HTML/CSS", level: "advanced" },
+          { name: "JavaScript", level: "advanced" as const },
+          { name: "React", level: "intermediate" as const },
+          { name: "TypeScript", level: "intermediate" as const },
+          { name: "HTML/CSS", level: "advanced" as const },
         ],
         experience: [
           {
