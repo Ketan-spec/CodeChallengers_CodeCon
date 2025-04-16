@@ -1,7 +1,7 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { Session, User } from '@supabase/supabase-js';
 
 type UserSkill = {
   name: string;
@@ -51,16 +51,6 @@ export type ScheduleItem = {
   priority: 'low' | 'medium' | 'high';
 };
 
-type Session = {
-  user: {
-    id: string;
-    email: string;
-    user_metadata: {
-      name: string;
-    };
-  };
-};
-
 type UserContextType = {
   user: UserProfile | null;
   setUser: React.Dispatch<React.SetStateAction<UserProfile | null>>;
@@ -93,15 +83,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        if (session?.user) {
+      (event, currentSession) => {
+        setSession(currentSession);
+        if (currentSession?.user) {
           setUser(prev => ({
             ...prev,
-            id: session.user.id,
-            email: session.user.email || '',
-            name: session.user.user_metadata.name || '',
-          }));
+            id: currentSession.user.id,
+            email: currentSession.user.email || '',
+            name: currentSession.user.user_metadata.name || '',
+          } as UserProfile));
         } else {
           setUser(null);
         }
@@ -109,15 +99,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session?.user) {
+    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+      setSession(currentSession);
+      if (currentSession?.user) {
         setUser(prev => ({
           ...prev,
-          id: session.user.id,
-          email: session.user.email || '',
-          name: session.user.user_metadata.name || '',
-        }));
+          id: currentSession.user.id,
+          email: currentSession.user.email || '',
+          name: currentSession.user.user_metadata.name || '',
+        } as UserProfile));
       }
       setIsLoading(false);
     });
