@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,26 +23,28 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <BrowserRouter>
-        <UserProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route element={<AuthenticatedLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/upload-cv" element={<CVUploader />} />
-              <Route path="/dream-job" element={<DreamJobForm />} />
-              <Route path="/roadmap" element={<Roadmap />} />
-              <Route path="/schedule" element={<ScheduleGenerator />} />
-              <Route path="/chatbot" element={<Chatbot />} />
-              <Route path="/interview" element={<MockInterview />} />
-            </Route>
-            <Route path="/" element={<Index />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </UserProvider>
-      </BrowserRouter>
+      <div className="dark h-full min-h-screen">
+        <BrowserRouter>
+          <UserProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/auth" element={<Auth />} />
+              <Route element={<AuthenticatedLayout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/upload-cv" element={<CVUploader />} />
+                <Route path="/dream-job" element={<DreamJobForm />} />
+                <Route path="/roadmap" element={<Roadmap />} />
+                <Route path="/schedule" element={<ScheduleGenerator />} />
+                <Route path="/chatbot" element={<Chatbot />} />
+                <Route path="/interview" element={<MockInterview />} />
+              </Route>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </UserProvider>
+        </BrowserRouter>
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );
