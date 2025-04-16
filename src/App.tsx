@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,8 +16,8 @@ import Chatbot from "./components/chatbot/Chatbot";
 import MockInterview from "./components/interview/MockInterview";
 import Sidebar from "./components/layout/Sidebar";
 import Navbar from "./components/layout/Navbar";
-import Auth from "./components/auth/Auth";
-import AuthenticatedLayout from "./components/auth/AuthenticatedLayout";
+import Auth from "./pages/Auth";
+import AuthenticatedLayout from "./components/layout/AuthenticatedLayout";
 
 const queryClient = new QueryClient();
 
