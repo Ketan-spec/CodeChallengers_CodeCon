@@ -75,7 +75,7 @@ const MockInterview = () => {
       { id: 't5', question: 'How do you approach troubleshooting technical problems?', category: 'technical', tips: 'Outline your systematic approach to problem-solving.' }
     ],
     situational: [
-      { id: 's1', question: 'How would you handle a situation where you're given multiple urgent tasks with the same deadline?', category: 'situational', tips: 'Demonstrate your prioritization and time management skills.' },
+      { id: 's1', question: 'How would you handle a situation where you\'re given multiple urgent tasks with the same deadline?', category: 'situational', tips: 'Demonstrate your prioritization and time management skills.' },
       { id: 's2', question: 'What would you do if you discovered a colleague was violating company policy?', category: 'situational', tips: 'Show your integrity and approach to sensitive situations.' },
       { id: 's3', question: 'How would you handle receiving negative feedback from your manager?', category: 'situational', tips: 'Show your growth mindset and ability to accept constructive criticism.' },
       { id: 's4', question: 'What would you do if a project was falling behind schedule?', category: 'situational', tips: 'Highlight your problem-solving and communication skills.' },
