@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/home/Hero';
 import { Button } from '@/components/ui/button';
@@ -141,9 +140,9 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
               <h2 className="text-2xl font-bold">
-                DreamJob<span className="text-dream-400">Blueprint</span>
+                Skill<span className="text-dream-400">ify</span>
               </h2>
-              <p className="mt-2 text-gray-300">Your path to success, one step at a time.</p>
+              <p className="mt-2 text-gray-300">Your path to professional growth.</p>
             </div>
             
             <div className="flex space-x-8">
@@ -168,7 +167,7 @@ const Index = () => {
           </div>
           
           <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-            <p className="text-gray-400">&copy; {new Date().getFullYear()} DreamJob Blueprint. All rights reserved.</p>
+            <p className="text-gray-400">&copy; {new Date().getFullYear()} Skillify. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to Skillify
 
 ## Project info
 
@@ -6,7 +6,7 @@
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
+Skillify is a career growth platform designed to help you achieve your professional goals.
 
 **Use Lovable**
 

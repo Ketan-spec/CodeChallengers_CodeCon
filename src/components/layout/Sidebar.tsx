@@ -95,7 +95,7 @@ const Sidebar = () => {
       <div className="flex flex-col h-full">
         <div className="p-5 border-b">
           <div className="text-lg font-bold text-dream-700">
-            DreamJob<span className="text-career-500">Blueprint</span>
+            Skill<span className="text-career-500">ify</span>
           </div>
           {user && (
             <div className="mt-2 text-sm text-gray-500">
